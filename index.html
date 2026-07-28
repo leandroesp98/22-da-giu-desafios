@@ -64,10 +64,10 @@
     .app { width: min(calc(100% - 2rem), var(--content-wide)); margin: 0 auto; padding: var(--space-6) 0 var(--space-10); display: grid; gap: var(--space-6); }
     .hero { background: linear-gradient(145deg, color-mix(in srgb, var(--color-primary) 14%, var(--color-surface)), var(--color-surface)); border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border)); border-radius: var(--radius-xl); padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: var(--shadow-md); }
     .hero-top { display: flex; justify-content: space-between; gap: var(--space-4); align-items: flex-start; flex-wrap: wrap; margin-bottom: var(--space-6); }
-    .brand { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius-full); background: rgba(255,255,255,.58); border: 1px solid rgba(255,255,255,.5); backdrop-filter: blur(10px); }
-    .logo { width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; background: var(--color-primary); color: var(--color-text-inverse); box-shadow: var(--shadow-sm); }
-    .brand h1 { font-size: var(--text-xl); line-height: 1; letter-spacing: -0.04em; font-weight: 900; }
-    .brand p { color: color-mix(in srgb, var(--color-text) 72%, transparent); font-size: var(--text-sm); margin-top: 0.1rem; }
+    .brand { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius-full); background: #FF67AA; border: 1px solid #FF67AA; backdrop-filter: blur(10px); color: #2b1720; }
+    .logo { width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; background: #ff3b8b; color: var(--color-text-inverse); box-shadow: var(--shadow-sm); }
+    .brand h1 { font-size: var(--text-xl); line-height: 1; letter-spacing: -0.04em; font-weight: 900; color: #2b1720; }
+    .brand p { color: rgba(43,23,32,0.75); font-size: var(--text-sm); margin-top: 0.1rem; }
     .theme-toggle { min-width: 44px; min-height: 44px; border-radius: var(--radius-full); background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.5); display: grid; place-items: center; backdrop-filter: blur(10px); color: var(--color-text); }
     .hero-grid { display: grid; grid-template-columns: 1.3fr .8fr; gap: var(--space-5); }
     .hero-copy h2 { font-size: clamp(1.8rem, 4vw, 3rem); line-height: .95; letter-spacing: -0.05em; margin-bottom: var(--space-3); }
@@ -168,27 +168,6 @@
     </section>
 
     <section class="panel-grid">
-      <aside class="card login-card">
-        <div>
-          <h3>Entrada das jogadoras</h3>
-          <p class="muted">Digite o nome, entre no jogo e marque o que foi concluído.</p>
-        </div>
-        <label>
-          <span class="muted">Seu nome</span>
-          <input id="playerNameInput" class="input" type="text" placeholder="Ex.: Ana, Bia, Júlia..." maxlength="28" />
-        </label>
-        <button id="joinBtn" class="btn btn-primary">Entrar / acessar placar</button>
-        <button id="resetCurrentBtn" class="btn btn-secondary">Zerar meus checks</button>
-        <div id="activePlayerCard" class="user-chip" aria-live="polite">
-          <div>
-            <div class="muted">Jogadora ativa</div>
-            <div id="activePlayerName" class="user-name">—</div>
-          </div>
-          <div id="activePlayerPoints" class="user-points">0 pts</div>
-        </div>
-        <div id="statusBox" class="status-box">Conectando ao placar...</div>
-      </aside>
-
       <section class="card challenge-wrap">
         <div>
           <h3>Quadro de desafios</h3>
