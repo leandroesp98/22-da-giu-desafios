@@ -1,371 +1,386 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>22 da Giu</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
-  <style>
-    :root, [data-theme="light"] {
-      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
-      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
-      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.1rem);
-      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
-      --color-bg: #fff8fb;
-      --color-surface: #ffffff;
-      --color-surface-2: #fff2f7;
-      --color-surface-offset: #fde7f0;
-      --color-border: #efc9d9;
-      --color-text: #2b1720;
-      --color-text-muted: #7c5d6b;
-      --color-text-inverse: #fff8fb;
-      --color-primary: #d63384;
-      --color-primary-hover: #b8256d;
-      --color-primary-highlight: #ffd7ea;
-      --color-success: #2f8f5b;
-      --color-success-highlight: #d7f5e6;
-      --color-gold: #c78a10;
-      --color-warning-highlight: #fff1d0;
-      --radius-md: 0.85rem; --radius-lg: 1.2rem; --radius-xl: 1.6rem; --radius-full: 9999px;
-      --shadow-sm: 0 10px 30px rgba(193, 91, 139, 0.08);
-      --shadow-md: 0 16px 40px rgba(193, 91, 139, 0.14);
-      --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
-      --font-body: 'Satoshi', 'Inter', sans-serif;
-      --content-wide: 1180px;
-    }
-    [data-theme="dark"] {
-      --color-bg: #1d1117;
-      --color-surface: #26161e;
-      --color-surface-2: #2e1a24;
-      --color-surface-offset: #371f2b;
-      --color-border: #533141;
-      --color-text: #ffeaf3;
-      --color-text-muted: #e7cfdb;
-      --color-text-inverse: #1d1117;
-      --color-primary: #ff67aa;
-      --color-primary-hover: #ff87bc;
-      --color-primary-highlight: #4b2135;
-      --color-success: #61d39a;
-      --color-success-highlight: #1b3a2b;
-      --color-gold: #ffd166;
-      --color-warning-highlight: #4b3a18;
-      --shadow-sm: 0 12px 28px rgba(0, 0, 0, 0.28);
-      --shadow-md: 0 18px 42px rgba(0, 0, 0, 0.36);
-    }
-    * , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base); line-height: 1.55; color: var(--color-text); background: radial-gradient(circle at top right, rgba(214,51,132,.16), transparent 25%), radial-gradient(circle at bottom left, rgba(255,209,102,.18), transparent 24%), var(--color-bg); }
-    button, input { font: inherit; }
-    button { cursor: pointer; border: none; background: none; color: inherit; }
-    input { border: none; outline: none; }
-    .app { width: min(calc(100% - 2rem), var(--content-wide)); margin: 0 auto; padding: var(--space-6) 0 var(--space-10); display: grid; gap: var(--space-6); }
-    .hero { background: linear-gradient(145deg, color-mix(in srgb, var(--color-primary) 14%, var(--color-surface)), var(--color-surface)); border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border)); border-radius: var(--radius-xl); padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: var(--shadow-md); }
-    .hero-top { display: flex; justify-content: space-between; gap: var(--space-4); align-items: flex-start; flex-wrap: wrap; margin-bottom: var(--space-6); }
-    .brand { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius-full); background: #FF67AA; border: 1px solid #FF67AA; backdrop-filter: blur(10px); color: #2b1720; }
-    .logo { width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; background: #ff3b8b; color: var(--color-text-inverse); box-shadow: var(--shadow-sm); }
-    .brand h1 { font-size: var(--text-xl); line-height: 1; letter-spacing: -0.04em; font-weight: 900; color: #2b1720; }
-    .brand p { color: rgba(43,23,32,0.75); font-size: var(--text-sm); margin-top: 0.1rem; }
-    .theme-toggle { min-width: 44px; min-height: 44px; border-radius: var(--radius-full); background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.5); display: grid; place-items: center; backdrop-filter: blur(10px); color: var(--color-text); }
-    .hero-grid { display: grid; grid-template-columns: 1.3fr .8fr; gap: var(--space-5); }
-    .hero-copy h2 { font-size: clamp(1.8rem, 4vw, 3rem); line-height: .95; letter-spacing: -0.05em; margin-bottom: var(--space-3); }
-    .hero-copy p { max-width: 58ch; color: var(--color-text-muted); }
-    .stats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--space-3); }
-    .stat { background: #FF67AA; border: 1px solid #FF67AA; border-radius: var(--radius-lg); padding: var(--space-4); backdrop-filter: blur(10px); color: #2b1720; }
-    .stat span { display:block; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .14em; color: rgba(43,23,32,0.7); margin-bottom: var(--space-2); }
-    .stat strong { font-size: var(--text-lg); font-weight: 900; color: #2b1720; }
-    .panel-grid { display: grid; grid-template-columns: 320px 1fr 320px; gap: var(--space-5); align-items: start; }
-    .card { background: color-mix(in srgb, var(--color-surface) 92%, white 8%); border: 1px solid color-mix(in srgb, var(--color-border) 88%, transparent); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: var(--space-5); }
-    .card h3 { font-size: var(--text-lg); margin-bottom: var(--space-2); letter-spacing: -0.03em; }
-    .card .muted { color: var(--color-text-muted); font-size: var(--text-sm); }
-    .login-card { position: sticky; top: 1rem; display: grid; gap: var(--space-4); }
-    .input { width: 100%; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.95rem 1rem; color: var(--color-text); }
-    .btn { min-height: 48px; border-radius: var(--radius-md); padding: 0.9rem 1rem; font-size: var(--text-sm); font-weight: 700; transition: transform var(--transition-interactive), background var(--transition-interactive), color var(--transition-interactive), border-color var(--transition-interactive); }
-    .btn-primary { background: var(--color-primary); color: var(--color-text-inverse); }
-    .btn-secondary { background: var(--color-surface-2); border: 1px solid var(--color-border); }
-    .user-chip { display: none; align-items: center; justify-content: space-between; gap: var(--space-3); background: var(--color-primary-highlight); border-radius: var(--radius-lg); padding: var(--space-4); border: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border)); }
-    .user-chip.active { display: flex; }
-    .user-name { font-weight: 900; font-size: var(--text-base); }
-    .user-points { font-weight: 900; color: var(--color-primary); }
-    .status-box { padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border); background: var(--color-surface-2); color: var(--color-text-muted); font-size: var(--text-sm); }
-    .challenge-wrap { display: grid; gap: var(--space-4); }
-    .challenge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-4); }
-    .challenge-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4); display: grid; gap: var(--space-3); min-height: 180px; }
-    .challenge-card.done { background: linear-gradient(180deg, var(--color-success-highlight), var(--color-surface)); border-color: color-mix(in srgb, var(--color-success) 45%, var(--color-border)); }
-    .challenge-card header { display: flex; justify-content: space-between; gap: var(--space-2); align-items: flex-start; }
-    .challenge-number { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: var(--color-primary-highlight); color: var(--color-primary); font-size: var(--text-sm); font-weight: 900; }
-    .challenge-points { padding: 0.35rem 0.65rem; border-radius: var(--radius-full); background: var(--color-warning-highlight); color: var(--color-gold); font-size: var(--text-xs); font-weight: 900; white-space: nowrap; }
-    .challenge-card p { color: var(--color-text); font-size: var(--text-sm); }
-    .check-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; gap: var(--space-3); }
-    .check-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .12em; color: var(--color-text-muted); }
-    .switch { position: relative; width: 58px; height: 34px; }
-    .switch input { position: absolute; inset: 0; opacity: 0; }
-    .slider { width: 100%; height: 100%; border-radius: 999px; background: var(--color-surface-offset); border: 1px solid var(--color-border); display: block; position: relative; }
-    .slider::after { content: ''; position: absolute; left: 4px; top: 4px; width: 24px; height: 24px; border-radius: 50%; background: white; box-shadow: 0 4px 8px rgba(0,0,0,.12); transition: transform var(--transition-interactive); }
-    .switch input:checked + .slider { background: color-mix(in srgb, var(--color-success) 28%, var(--color-surface)); border-color: color-mix(in srgb, var(--color-success) 45%, var(--color-border)); }
-    .switch input:checked + .slider::after { transform: translateX(24px); }
-    .switch input:disabled + .slider { opacity: .5; }
-    .ranking-list { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
-    .ranking-item { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-3); align-items: center; padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: var(--color-surface-2); border: 1px solid var(--color-border); }
-    .ranking-item.leading { background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 14%, var(--color-surface)), var(--color-surface)); border-color: color-mix(in srgb, var(--color-primary) 32%, var(--color-border)); }
-    .rank-badge { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; font-weight: 900; font-size: var(--text-sm); background: var(--color-surface); border: 1px solid var(--color-border); }
-    .ranking-name { font-weight: 700; }
-    .ranking-meta { color: var(--color-text-muted); font-size: var(--text-xs); }
-    .ranking-score { font-weight: 900; }
-    .footer-note { text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); padding-top: var(--space-2); }
-    .entry-gate { position: fixed; inset: 0; z-index: 50; background: radial-gradient(circle at top, rgba(255,103,170,.4), rgba(43,23,32,1)); display: grid; place-items: center; padding: 1rem; }
-    .entry-gate.hidden { display: none; }
-    .entry-gate-card { width: min(420px, 90%); background: rgba(0,0,0,.65); border-radius: 32px; padding: 2rem 2.4rem; border: 1px solid rgba(255,255,255,.35); box-shadow: 0 24px 70px rgba(0,0,0,.75); }
-    .entry-gate-card h2 { color: #FF67AA; font-size: 1.6rem; letter-spacing: -0.04em; margin-bottom: 0.75rem; }
-    .entry-gate-card p { color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 1.4rem; }
-    .entry-gate-input { width: 100%; border-radius: 18px; border: none; padding: 0.9rem 1rem; font-size: 0.95rem; margin-bottom: 1rem; }
-    .entry-gate-btn { width: 100%; border-radius: 18px; border: none; padding: 0.9rem 1rem; background: #FF67AA; color: #2b1720; font-weight: 700; font-size: 0.95rem; }
-    @media (max-width: 1080px) { .panel-grid { grid-template-columns: 1fr; } .login-card { position: static; } .hero-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 640px) { .app { width: min(calc(100% - 1rem), var(--content-wide)); padding-top: 0.75rem; } .hero, .card { padding: var(--space-4); } .challenge-grid { grid-template-columns: 1fr; } }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>22 da Giu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="light"] {
+--text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+--text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+--text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+--text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+--text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.1rem);
+--space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
+--color-bg: #fff8fb;
+--color-surface: #ffffff;
+--color-surface-2: #fff2f7;
+--color-surface-offset: #fde7f0;
+--color-border: #efc9d9;
+--color-text: #2b1720;
+--color-text-muted: #7c5d6b;
+--color-text-inverse: #fff8fb;
+--color-primary: #d63384;
+--color-primary-hover: #b8256d;
+--color-primary-highlight: #ffd7ea;
+--color-success: #2f8f5b;
+--color-success-highlight: #d7f5e6;
+--color-gold: #c78a10;
+--color-warning-highlight: #fff1d0;
+--radius-md: 0.85rem; --radius-lg: 1.2rem; --radius-xl: 1.6rem; --radius-full: 9999px;
+--shadow-sm: 0 10px 30px rgba(193, 91, 139, 0.08);
+--shadow-md: 0 16px 40px rgba(193, 91, 139, 0.14);
+--transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+--font-body: 'Satoshi', 'Inter', sans-serif;
+--content-wide: 1180px;
+}
+[data-theme="dark"] {
+--color-bg: #1d1117;
+--color-surface: #26161e;
+--color-surface-2: #2e1a24;
+--color-surface-offset: #371f2b;
+--color-border: #533141;
+--color-text: #ffeaf3;
+--color-text-muted: #e7cfdb;
+--color-text-inverse: #1d1117;
+--color-primary: #ff67aa;
+--color-primary-hover: #ff87bc;
+--color-primary-highlight: #4b2135;
+--color-success: #61d39a;
+--color-success-highlight: #1b3a2b;
+--color-gold: #ffd166;
+--color-warning-highlight: #4b3a18;
+--shadow-sm: 0 12px 28px rgba(0, 0, 0, 0.28);
+--shadow-md: 0 18px 42px rgba(0, 0, 0, 0.36);
+}
+* , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base); line-height: 1.55; color: var(--color-text); background: radial-gradient(circle at top right, rgba(214,51,132,.16), transparent 25%), radial-gradient(circle at bottom left, rgba(255,209,102,.18), transparent 24%), var(--color-bg); }
+button, input { font: inherit; }
+button { cursor: pointer; border: none; background: none; color: inherit; }
+input { border: none; outline: none; }
+.app { width: min(calc(100% - 2rem), var(--content-wide)); margin: 0 auto; padding: var(--space-6) 0 var(--space-10); display: grid; gap: var(--space-6); }
+.hero { background: linear-gradient(145deg, color-mix(in srgb, var(--color-primary) 14%, var(--color-surface)), var(--color-surface)); border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border)); border-radius: var(--radius-xl); padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: var(--shadow-md); }
+.hero-top { display: flex; justify-content: space-between; gap: var(--space-4); align-items: flex-start; flex-wrap: wrap; margin-bottom: var(--space-6); }
+.brand { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius-full); background: rgba(255,255,255,.58); border: 1px solid rgba(255,255,255,.5); backdrop-filter: blur(10px); }
+.logo { width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; background: var(--color-primary); color: var(--color-text-inverse); box-shadow: var(--shadow-sm); }
+.brand h1 { font-size: var(--text-xl); line-height: 1; letter-spacing: -0.04em; font-weight: 900; }
+.brand p { color: color-mix(in srgb, var(--color-text) 72%, transparent); font-size: var(--text-sm); margin-top: 0.1rem; }
+.theme-toggle { min-width: 44px; min-height: 44px; border-radius: var(--radius-full); background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.5); display: grid; place-items: center; backdrop-filter: blur(10px); color: var(--color-text); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr .8fr; gap: var(--space-5); }
+.hero-copy h2 { font-size: clamp(1.8rem, 4vw, 3rem); line-height: .95; letter-spacing: -0.05em; margin-bottom: var(--space-3); }
+.hero-copy p { max-width: 58ch; color: var(--color-text-muted); }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--space-3); }
+.stat { background: #FF67AA; border: 1px solid #FF67AA; border-radius: var(--radius-lg); padding: var(--space-4); backdrop-filter: blur(10px); color: #2b1720; }
+.stat span { display:block; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .14em; color: rgba(43,23,32,0.7); margin-bottom: var(--space-2); }
+.stat strong { font-size: var(--text-lg); font-weight: 900; color: #2b1720; }
+.panel-grid { display: grid; grid-template-columns: 320px 1fr 320px; gap: var(--space-5); align-items: start; }
+.card { background: color-mix(in srgb, var(--color-surface) 92%, white 8%); border: 1px solid color-mix(in srgb, var(--color-border) 88%, transparent); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: var(--space-5); }
+.card h3 { font-size: var(--text-lg); margin-bottom: var(--space-2); letter-spacing: -0.03em; }
+.card .muted { color: var(--color-text-muted); font-size: var(--text-sm); }
+.login-card { position: sticky; top: 1rem; display: grid; gap: var(--space-4); }
+.input { width: 100%; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.95rem 1rem; color: var(--color-text); }
+.btn { min-height: 48px; border-radius: var(--radius-md); padding: 0.9rem 1rem; font-size: var(--text-sm); font-weight: 700; transition: transform var(--transition-interactive), background var(--transition-interactive), color var(--transition-interactive), border-color var(--transition-interactive); }
+.btn-primary { background: var(--color-primary); color: var(--color-text-inverse); }
+.btn-secondary { background: var(--color-surface-2); border: 1px solid var(--color-border); }
+.user-chip { display: none; align-items: center; justify-content: space-between; gap: var(--space-3); background: var(--color-primary-highlight); border-radius: var(--radius-lg); padding: var(--space-4); border: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border)); }
+.user-chip.active { display: flex; }
+.user-name { font-weight: 900; font-size: var(--text-base); }
+.user-points { font-weight: 900; color: var(--color-primary); }
+.status-box { padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border); background: var(--color-surface-2); color: var(--color-text-muted); font-size: var(--text-sm); }
+.challenge-wrap { display: grid; gap: var(--space-4); }
+.challenge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-4); }
+.challenge-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4); display: grid; gap: var(--space-3); min-height: 180px; }
+.challenge-card.done { background: linear-gradient(180deg, var(--color-success-highlight), var(--color-surface)); border-color: color-mix(in srgb, var(--color-success) 45%, var(--color-border)); }
+.challenge-card header { display: flex; justify-content: space-between; gap: var(--space-2); align-items: flex-start; }
+.challenge-number { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: var(--color-primary-highlight); color: var(--color-primary); font-size: var(--text-sm); font-weight: 900; }
+.challenge-points { padding: 0.35rem 0.65rem; border-radius: var(--radius-full); background: var(--color-warning-highlight); color: var(--color-gold); font-size: var(--text-xs); font-weight: 900; white-space: nowrap; }
+.challenge-card p { color: var(--color-text); font-size: var(--text-sm); }
+.check-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; gap: var(--space-3); }
+.check-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .12em; color: var(--color-text-muted); }
+.switch { position: relative; width: 58px; height: 34px; }
+.switch input { position: absolute; inset: 0; opacity: 0; }
+.slider { width: 100%; height: 100%; border-radius: 999px; background: var(--color-surface-offset); border: 1px solid var(--color-border); display: block; position: relative; }
+.slider::after { content: ''; position: absolute; left: 4px; top: 4px; width: 24px; height: 24px; border-radius: 50%; background: white; box-shadow: 0 4px 8px rgba(0,0,0,.12); transition: transform var(--transition-interactive); }
+.switch input:checked + .slider { background: color-mix(in srgb, var(--color-success) 28%, var(--color-surface)); border-color: color-mix(in srgb, var(--color-success) 45%, var(--color-border)); }
+.switch input:checked + .slider::after { transform: translateX(24px); }
+.switch input:disabled + .slider { opacity: .5; }
+.ranking-list { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
+.ranking-item { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-3); align-items: center; padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: var(--color-surface-2); border: 1px solid var(--color-border); }
+.ranking-item.leading { background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 14%, var(--color-surface)), var(--color-surface)); border-color: color-mix(in srgb, var(--color-primary) 32%, var(--color-border)); }
+.rank-badge { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; font-weight: 900; font-size: var(--text-sm); background: var(--color-surface); border: 1px solid var(--color-border); }
+.ranking-name { font-weight: 700; }
+.ranking-meta { color: var(--color-text-muted); font-size: var(--text-xs); }
+.ranking-score { font-weight: 900; }
+.footer-note { text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); padding-top: var(--space-2); }
+.entry-gate { position: fixed; inset: 0; z-index: 50; background: radial-gradient(circle at top, rgba(255,103,170,.4), rgba(43,23,32,1)); display: grid; place-items: center; padding: 1rem; }
+.entry-gate.hidden { display: none; }
+.entry-gate-card { width: min(420px, 90%); background: rgba(0,0,0,.65); border-radius: 32px; padding: 2rem 2.4rem; border: 1px solid rgba(255,255,255,.35); box-shadow: 0 24px 70px rgba(0,0,0,.75); }
+.entry-gate-card h2 { color: #FF67AA; font-size: 1.6rem; letter-spacing: -0.04em; margin-bottom: 0.75rem; }
+.entry-gate-card p { color: #e7cfdb; font-size: 0.95rem; margin-bottom: 1.4rem; }
+.entry-gate-input { width: 100%; border-radius: 18px; border: none; padding: 0.9rem 1rem; font-size: 0.95rem; margin-bottom: 1rem; }
+.entry-gate-btn { width: 100%; border-radius: 18px; border: none; padding: 0.9rem 1rem; background: #FF67AA; color: #2b1720; font-weight: 700; font-size: 0.95rem; }
+@media (max-width: 1080px) { .panel-grid { grid-template-columns: 1fr; } .login-card { position: static; } .hero-grid { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .app { width: min(calc(100% - 1rem), var(--content-wide)); padding-top: 0.75rem; } .hero, .card { padding: var(--space-4); } .challenge-grid { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
-  <div id="entryGate" class="entry-gate">
-    <div class="entry-gate-card">
-      <h2>Entrar no jogo</h2>
-      <p>Digite seu nome para acessar os desafios e o ranking ao vivo da festa.</p>
-      <input id="entryGateName" class="entry-gate-input" type="text" placeholder="Ex.: Ana, Bia, Júlia..." maxlength="28" />
-      <button id="entryGateBtn" class="entry-gate-btn">Entrar</button>
-    </div>
-  </div>
+<div id="entryGate" class="entry-gate">
+<div class="entry-gate-card">
+<h2>Entrar no jogo</h2>
+<p>Digite seu nome para acessar os desafios e o ranking ao vivo da festa.</p>
+<input id="entryGateName" class="entry-gate-input" type="text" placeholder="Ex.: Ana, Bia, Júlia..." maxlength="28" />
+<button id="entryGateBtn" class="entry-gate-btn">Entrar</button>
+</div>
+</div>
+<main class="app">
+<section class="hero">
+<div class="hero-top">
+<div class="brand">
+<div class="logo" aria-hidden="true">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 7.2C6 5.43269 7.43269 4 9.2 4H12.3C15.448 4 18 6.55298 18 9.701V17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M7 14.5L11.2 10.3C11.8259 9.67411 12.8404 9.67411 13.4663 10.3L17 13.8337" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="17.5" cy="17.5" r="2.5" fill="currentColor"/>
+</svg>
+</div>
+<div>
+<h1>22 DA GIU</h1>
+<p>Desafios, pontos e ranking ao vivo</p>
+</div>
+</div>
+<button class="theme-toggle" data-theme-toggle aria-label="Alternar tema">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+</button>
+</div>
+<div class="hero-grid">
+<div class="hero-copy">
+<h2>Quem cumprir mais desafios leva o prêmio da noite.</h2>
+</div>
+<div class="stats">
+<div class="stat"><span>Líder agora</span><strong id="leaderName">—</strong></div>
+<div class="stat"><span>Maior pontuação</span><strong id="leaderScore">0 pts</strong></div>
+</div>
+</div>
+</section>
 
-  <main class="app">
-    <section class="hero">
-      <div class="hero-top">
-        <div class="brand">
-          <div class="logo" aria-hidden="true"> 
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 7.2C6 5.43269 7.43269 4 9.2 4H12.3C15.448 4 18 6.55298 18 9.701V17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-              <path d="M7 14.5L11.2 10.3C11.8259 9.67411 12.8404 9.67411 13.4663 10.3L17 13.8337" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-              <circle cx="17.5" cy="17.5" r="2.5" fill="currentColor"/>
-            </svg>
-          </div>
-          <div>
-            <h1>22 DA GIU</h1>
-            <p>Desafios, pontos e ranking ao vivo</p>
-          </div>
-        </div>
-        <button class="theme-toggle" data-theme-toggle aria-label="Alternar tema">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
-      </div>
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <h2>Quem cumprir mais desafios leva o prêmio da noite.</h2>
-        </div>
-        <div class="stats">
-          <div class="stat"><span>Líder agora</span><strong id="leaderName">—</strong></div>
-          <div class="stat"><span>Maior pontuação</span><strong id="leaderScore">0 pts</strong></div>
-        </div>
-      </div>
-    </section>
+<section class="panel-grid">
+<aside class="card login-card">
+<div>
+<h3>Entrada das jogadoras</h3>
+<p class="muted">Digite o nome, entre no jogo e marque o que foi concluído.</p>
+</div>
+<label>
+<span class="muted">Seu nome</span>
+<input id="playerNameInput" class="input" type="text" placeholder="Ex.: Ana, Bia, Júlia..." maxlength="28" />
+</label>
+<button id="joinBtn" class="btn btn-primary">Entrar / acessar placar</button>
+<button id="resetCurrentBtn" class="btn btn-secondary">Zerar meus checks</button>
+<div id="activePlayerCard" class="user-chip" aria-live="polite">
+<div>
+<div class="muted">Jogadora ativa</div>
+<div id="activePlayerName" class="user-name">—</div>
+</div>
+<div id="activePlayerPoints" class="user-points">0 pts</div>
+</div>
+<div id="statusBox" class="status-box">Conectando ao placar...</div>
+</aside>
 
-    <section class="panel-grid">
-      <section class="card challenge-wrap">
-        <div>
-          <h3>Quadro de desafios</h3>
-          <p class="muted">Ao marcar um desafio, a cor muda e os pontos entram automaticamente.</p>
-        </div>
-        <div id="challengeGrid" class="challenge-grid"></div>
-      </section>
+<section class="card challenge-wrap">
+<div>
+<h3>Quadro de desafios</h3>
+<p class="muted">Ao marcar um desafio, a cor muda e os pontos entram automaticamente.</p>
+</div>
+<div id="challengeGrid" class="challenge-grid"></div>
+</section>
 
-      <aside class="card">
-        <h3>Ranking em tempo real</h3>
-        <p class="muted">Empate é resolvido por quem completou mais desafios.</p>
-        <div id="rankingList" class="ranking-list"></div>
-      </aside>
-    </section>
+<aside class="card">
+<h3>Top 3 do ranking</h3>
+<p class="muted">Empate é resolvido por quem completou mais desafios.</p>
+<div id="rankingList" class="ranking-list"></div>
+</aside>
+</section>
 
-    <p class="footer-note">Supabase conectado para salvar os checks no banco e atualizar o ranking ao vivo.</p>
-  </main>
+<p class="footer-note">Supabase conectado para salvar os checks no banco e atualizar o ranking ao vivo.</p>
+</main>
 
-  <script type="module">
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-    const supabase = createClient('https://btfgtapowslgopgyoron.supabase.co','sb_publishable_q8l7XV0LP69LsBeGcpyHow_hZrqp39a');
-    const challenges = [
-      { id: 1, points: 6, text: 'Descubra algo que você tem em comum com alguém' },
-      { id: 2, points: 12, text: 'Peça atenção de uma mesa e faça um brinde de 10 segundos em homenagem à aniversariante' },
-      { id: 3, points: 2, text: 'Se você tiver um gloss na bolsa' },
-      { id: 4, points: 5, text: 'Conte como você conheceu a Giu' },
-      { id: 5, points: 6, text: 'Tire uma foto com alguém que está vestindo a mesma cor que você' },
-      { id: 6, points: 8, text: 'Grave uma thread do TikTok' },
-      { id: 7, points: 3, text: 'Faça um elogio sincero a alguém' },
-      { id: 8, points: 10, text: 'Dance no meio do salão' },
-      { id: 9, points: 4, text: 'Encontre alguém que nasceu em outra cidade' },
-      { id: 10, points: 8, text: 'Siga todas as convidadas no Instagram' },
-      { id: 11, points: 5, text: 'Conte um fato inusitado sobre a Giu' },
-      { id: 12, points: 7, text: 'Poste uma foto com a aniversariante' },
-      { id: 13, points: 2, text: 'Se seu carrinho da Shein estiver com mais de R$ 200' },
-      { id: 14, points: 10, text: 'Puxe o parabéns para a aniversariante' },
-      { id: 15, points: 15, text: 'Vá até uma mesa que você não conhece e se apresente como se fosse amigo de todo mundo' },
-      { id: 16, points: 6, text: 'Escreva um bilhetinho para a Giu' },
-      { id: 17, points: 8, text: 'Troque de peruca com alguém' },
-      { id: 18, points: 7, text: 'Deixe alguém da mesa postar um story na sua conta' },
-      { id: 19, points: 3, text: 'Diga algo que a Giu não vive sem' },
-      { id: 20, points: 10, text: 'Mostre o seu talento' },
-      { id: 21, points: 10, text: 'Se você veio de peruca' },
-      { id: 22, points: 12, text: 'Cante uma música. Se mais 5 pessoas cantarem junto com você' },
-      { id: 23, points: 4, text: 'Diga algo que admira na Giu' },
-      { id: 24, points: 10, text: 'Peça que um desconhecido avalie seu look de 1 a 10' },
-      { id: 25, points: 6, text: 'Tire uma foto com uma pessoa que você conheceu hoje' },
-    ];
-    const state = { players: [], completions: [], currentPlayerId: null, theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' };
-    const challengeGrid = document.getElementById('challengeGrid');
-    const rankingList = document.getElementById('rankingList');
-    const playerNameInput = document.getElementById('playerNameInput');
-    const joinBtn = document.getElementById('joinBtn');
-    const resetCurrentBtn = document.getElementById('resetCurrentBtn');
-    const activePlayerCard = document.getElementById('activePlayerCard');
-    const activePlayerName = document.getElementById('activePlayerName');
-    const activePlayerPoints = document.getElementById('activePlayerPoints');
-    const leaderName = document.getElementById('leaderName');
-    const leaderScore = document.getElementById('leaderScore');
-    const themeToggle = document.querySelector('[data-theme-toggle]');
-    const statusBox = document.getElementById('statusBox');
-    const entryGate = document.getElementById('entryGate');
-    const entryGateName = document.getElementById('entryGateName');
-    const entryGateBtn = document.getElementById('entryGateBtn');
-    function setStatus(message) { statusBox.textContent = message; }
-    function getPlayerCompletions(playerId) { return state.completions.filter(item => item.player_id === playerId).map(item => item.challenge_id); }
-    function getPlayerPoints(playerId) { const ids = getPlayerCompletions(playerId); return challenges.reduce((sum, item) => sum + (ids.includes(item.id) ? item.points : 0), 0); }
-    function getPlayerCompletedCount(playerId) { return getPlayerCompletions(playerId).length; }
-    function getCurrentPlayer() { return state.players.find(player => player.id === state.currentPlayerId) || null; }
-    function updateThemeIcon() {
-      document.documentElement.setAttribute('data-theme', state.theme);
-      themeToggle.innerHTML = state.theme === 'dark'
-        ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>'
-        : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
-    }
-    function renderChallenges() {
-      const currentPlayer = getCurrentPlayer();
-      const doneIds = currentPlayer ? getPlayerCompletions(currentPlayer.id) : [];
-      challengeGrid.innerHTML = challenges.map(item => {
-        const checked = doneIds.includes(item.id);
-        return `<article class="challenge-card ${checked ? 'done' : ''}"><header><div class="challenge-number">${item.id}</div><div class="challenge-points">+${item.points} pts</div></header><p>${item.text}</p><div class="check-row"><span class="check-label">${checked ? 'Concluído' : 'Marcar'}</span><label class="switch"><input type="checkbox" data-check-id="${item.id}" ${checked ? 'checked' : ''} ${currentPlayer ? '' : 'disabled'} /><span class="slider"></span></label></div></article>`;
-      }).join('');
-      challengeGrid.querySelectorAll('[data-check-id]').forEach(input => input.addEventListener('change', async e => await toggleChallenge(Number(e.target.dataset.checkId), e.target.checked)));
-    }
-    function renderRanking() {
-      const sorted = [...state.players].sort((a, b) => {
-        const pointsDiff = getPlayerPoints(b.id) - getPlayerPoints(a.id);
-        if (pointsDiff !== 0) return pointsDiff;
-        const completedDiff = getPlayerCompletedCount(b.id) - getPlayerCompletedCount(a.id);
-        if (completedDiff !== 0) return completedDiff;
-        return a.name.localeCompare(b.name, 'pt-BR');
-      }).slice(0, 3);
-      if (!sorted.length) {
-        rankingList.innerHTML = '<div class="ranking-item"><div class="rank-badge">—</div><div><div class="ranking-name">Ninguém entrou ainda</div><div class="ranking-meta">Assim que alguém acessar, o ranking aparece aqui.</div></div><div class="ranking-score">0 pts</div></div>';
-        leaderName.textContent = '—';
-        leaderScore.textContent = '0 pts';
-        return;
-      }
-      const lead = sorted[0];
-      leaderName.textContent = lead.name;
-      leaderScore.textContent = `${getPlayerPoints(lead.id)} pts`;
-      rankingList.innerHTML = sorted.map((player, index) => `<div class="ranking-item ${index === 0 ? 'leading' : ''}"><div class="rank-badge">${index + 1}</div><div><div class="ranking-name">${player.name}</div><div class="ranking-meta">${getPlayerCompletedCount(player.id)} desafios concluídos</div></div><div class="ranking-score">${getPlayerPoints(player.id)} pts</div></div>`).join('');
-    }
-    function renderActivePlayer() {
-      const currentPlayer = getCurrentPlayer();
-      if (!currentPlayer) { activePlayerCard.classList.remove('active'); activePlayerName.textContent = '—'; activePlayerPoints.textContent = '0 pts'; return; }
-      activePlayerCard.classList.add('active');
-      activePlayerName.textContent = currentPlayer.name;
-      activePlayerPoints.textContent = `${getPlayerPoints(currentPlayer.id)} pts`;
-    }
-    function syncUI() { renderActivePlayer(); renderChallenges(); renderRanking(); }
-    async function loadData() {
-      const [{ data: players, error: playersError }, { data: completions, error: completionsError }] = await Promise.all([
-        supabase.from('party_players').select('*').order('created_at', { ascending: true }),
-        supabase.from('party_completions').select('*')
-      ]);
-      if (playersError || completionsError) {
-        console.error(playersError || completionsError);
-        setStatus('Erro ao carregar dados do Supabase. Confira as tabelas e policies.');
-        return;
-      }
-      state.players = players || [];
-      state.completions = completions || [];
-      setStatus('Placar online e sincronizado.');
-      syncUI();
-    }
-    async function ensurePlayer(name) {
-      const cleaned = name.trim().replace(/\s+/g, ' ');
-      if (!cleaned) { alert('Digite um nome para entrar no jogo.'); return null; }
-      let player = state.players.find(item => item.name.toLowerCase() === cleaned.toLowerCase());
-      if (!player) {
-        const { data, error } = await supabase
-          .from('party_players')
-          .insert({ name: cleaned })
-          .select()
-          .single();
-        if (error) {
-          console.error(error);
-          setStatus('Não consegui criar a jogadora. Confira o Supabase e o SQL.');
-          return null;
-        }
-        player = data;
-        state.players = [...state.players, player];
-      }
-      state.currentPlayerId = player.id;
-      playerNameInput.value = player.name;
-      setStatus(`Você entrou como ${player.name}.`);
-      syncUI();
-      return player;
-    }
-    async function toggleChallenge(challengeId, checked) {
-      const currentPlayer = getCurrentPlayer();
-      if (!currentPlayer) return;
-      if (checked) {
-        const { error } = await supabase.from('party_completions').upsert({ player_id: currentPlayer.id, challenge_id: challengeId }, { onConflict: 'player_id,challenge_id' });
-        if (error) { console.error(error); setStatus('Erro ao salvar check no Supabase.'); return; }
-      } else {
-        const { error } = await supabase.from('party_completions').delete().eq('player_id', currentPlayer.id).eq('challenge_id', challengeId);
-        if (error) { console.error(error); setStatus('Erro ao remover check no Supabase.'); return; }
-      }
-      await loadData();
-      state.currentPlayerId = currentPlayer.id;
-      syncUI();
-    }
-    async function resetCurrentPlayer() {
-      const currentPlayer = getCurrentPlayer();
-      if (!currentPlayer) { alert('Entre com um nome antes de zerar seus desafios.'); return; }
-      const { error } = await supabase.from('party_completions').delete().eq('player_id', currentPlayer.id);
-      if (error) { console.error(error); setStatus('Erro ao zerar seus checks.'); return; }
-      await loadData();
-      state.currentPlayerId = currentPlayer.id;
-      setStatus(`Checks de ${currentPlayer.name} zerados.`);
-      syncUI();
-    }
-    async function enterWithGate() {
-      const name = entryGateName.value.trim();
-      if (!name) {
-        alert('Digite seu nome para entrar.');
-        return;
-      }
-      const player = await ensurePlayer(name);
-      if (player) {
-        entryGate.classList.add('hidden');
-      }
-    }
-    joinBtn.addEventListener('click', async () => await ensurePlayer(playerNameInput.value));
-    playerNameInput.addEventListener('keydown', async e => { if (e.key === 'Enter') await ensurePlayer(playerNameInput.value); });
-    resetCurrentBtn.addEventListener('click', resetCurrentPlayer);
-    entryGateBtn.addEventListener('click', enterWithGate);
-    entryGateName.addEventListener('keydown', async e => { if (e.key === 'Enter') await enterWithGate(); });
-    themeToggle.addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; updateThemeIcon(); });
-    updateThemeIcon();
-    syncUI();
-    await loadData();
-    supabase.channel('party-live-ranking')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'party_players' }, async () => { await loadData(); })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'party_completions' }, async () => { await loadData(); })
-      .subscribe((status) => { if (status === 'SUBSCRIBED') setStatus('Tempo real ativo.'); });
-  </script>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const supabase = createClient('https://btfgtapowslgopgyoron.supabase.co','sb_publishable_q8l7XV0LP69LsBeGcpyHow_hZrqp39a');
+const challenges = [
+{ id: 1, points: 6, text: 'Descubra algo que você tem em comum com alguém' },
+{ id: 2, points: 12, text: 'Peça atenção de uma mesa e faça um brinde de 10 segundos em homenagem à aniversariante' },
+{ id: 3, points: 2, text: 'Se você tiver um gloss na bolsa' },
+{ id: 4, points: 5, text: 'Conte como você conheceu a Giu' },
+{ id: 5, points: 6, text: 'Tire uma foto com alguém que está vestindo a mesma cor que você' },
+{ id: 6, points: 8, text: 'Grave uma thread do TikTok' },
+{ id: 7, points: 3, text: 'Faça um elogio sincero a alguém' },
+{ id: 8, points: 10, text: 'Dance no meio do salão' },
+{ id: 9, points: 4, text: 'Encontre alguém que nasceu em outra cidade' },
+{ id: 10, points: 8, text: 'Siga todas as convidadas no Instagram' },
+{ id: 11, points: 5, text: 'Conte um fato inusitado sobre a Giu' },
+{ id: 12, points: 7, text: 'Poste uma foto com a aniversariante' },
+{ id: 13, points: 2, text: 'Se seu carrinho da Shein estiver com mais de R$ 200' },
+{ id: 14, points: 10, text: 'Puxe o parabéns para a aniversariante' },
+{ id: 15, points: 15, text: 'Vá até uma mesa que você não conhece e se apresente como se fosse amigo de todo mundo' },
+{ id: 16, points: 6, text: 'Escreva um bilhetinho para a Giu' },
+{ id: 17, points: 8, text: 'Troque de peruca com alguém' },
+{ id: 18, points: 7, text: 'Deixe alguém da mesa postar um story na sua conta' },
+{ id: 19, points: 3, text: 'Diga algo que a Giu não vive sem' },
+{ id: 20, points: 10, text: 'Mostre o seu talento' },
+{ id: 21, points: 10, text: 'Se você veio de peruca' },
+{ id: 22, points: 12, text: 'Cante uma música. Se mais 5 pessoas cantarem junto com você' },
+{ id: 23, points: 4, text: 'Diga algo que admira na Giu' },
+{ id: 24, points: 10, text: 'Peça que um desconhecido avalie seu look de 1 a 10' },
+{ id: 25, points: 6, text: 'Tire uma foto com uma pessoa que você conheceu hoje' },
+];
+const state = { players: [], completions: [], currentPlayerId: null, theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' };
+const challengeGrid = document.getElementById('challengeGrid');
+const rankingList = document.getElementById('rankingList');
+const playerNameInput = document.getElementById('playerNameInput');
+const joinBtn = document.getElementById('joinBtn');
+const resetCurrentBtn = document.getElementById('resetCurrentBtn');
+const activePlayerCard = document.getElementById('activePlayerCard');
+const activePlayerName = document.getElementById('activePlayerName');
+const activePlayerPoints = document.getElementById('activePlayerPoints');
+const leaderName = document.getElementById('leaderName');
+const leaderScore = document.getElementById('leaderScore');
+const themeToggle = document.querySelector('[data-theme-toggle]');
+const statusBox = document.getElementById('statusBox');
+const entryGate = document.getElementById('entryGate');
+const entryGateName = document.getElementById('entryGateName');
+const entryGateBtn = document.getElementById('entryGateBtn');
+function setStatus(message) { statusBox.textContent = message; }
+function getPlayerCompletions(playerId) { return state.completions.filter(item => item.player_id === playerId).map(item => item.challenge_id); }
+function getPlayerPoints(playerId) { const ids = getPlayerCompletions(playerId); return challenges.reduce((sum, item) => sum + (ids.includes(item.id) ? item.points : 0), 0); }
+function getPlayerCompletedCount(playerId) { return getPlayerCompletions(playerId).length; }
+function getCurrentPlayer() { return state.players.find(player => player.id === state.currentPlayerId) || null; }
+function updateThemeIcon() {
+document.documentElement.setAttribute('data-theme', state.theme);
+themeToggle.innerHTML = state.theme === 'dark'
+? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>'
+: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+}
+function renderChallenges() {
+const currentPlayer = getCurrentPlayer();
+const doneIds = currentPlayer ? getPlayerCompletions(currentPlayer.id) : [];
+challengeGrid.innerHTML = challenges.map(item => {
+const checked = doneIds.includes(item.id);
+return `<article class="challenge-card ${checked ? 'done' : ''}"><header><div class="challenge-number">${item.id}</div><div class="challenge-points">+${item.points} pts</div></header><p>${item.text}</p><div class="check-row"><span class="check-label">${checked ? 'Concluído' : 'Marcar'}</span><label class="switch"><input type="checkbox" data-check-id="${item.id}" ${checked ? 'checked' : ''} ${currentPlayer ? '' : 'disabled'} /><span class="slider"></span></label></div></article>`;
+}).join('');
+challengeGrid.querySelectorAll('[data-check-id]').forEach(input => input.addEventListener('change', async e => await toggleChallenge(Number(e.target.dataset.checkId), e.target.checked)));
+}
+function renderRanking() {
+const sorted = [...state.players].sort((a, b) => {
+const pointsDiff = getPlayerPoints(b.id) - getPlayerPoints(a.id);
+if (pointsDiff !== 0) return pointsDiff;
+const completedDiff = getPlayerCompletedCount(b.id) - getPlayerCompletedCount(a.id);
+if (completedDiff !== 0) return completedDiff;
+return a.name.localeCompare(b.name, 'pt-BR');
+}).slice(0, 3);
+if (!sorted.length) {
+rankingList.innerHTML = '<div class="ranking-item"><div class="rank-badge">—</div><div><div class="ranking-name">Ninguém entrou ainda</div><div class="ranking-meta">Assim que alguém acessar, o ranking aparece aqui.</div></div><div class="ranking-score">0 pts</div></div>';
+leaderName.textContent = '—';
+leaderScore.textContent = '0 pts';
+return;
+}
+const lead = sorted[0];
+leaderName.textContent = lead.name;
+leaderScore.textContent = `${getPlayerPoints(lead.id)} pts`;
+rankingList.innerHTML = sorted.map((player, index) => `<div class="ranking-item ${index === 0 ? 'leading' : ''}"><div class="rank-badge">${index + 1}</div><div><div class="ranking-name">${player.name}</div><div class="ranking-meta">${getPlayerCompletedCount(player.id)} desafios concluídos</div></div><div class="ranking-score">${getPlayerPoints(player.id)} pts</div></div>`).join('');
+}
+function renderActivePlayer() {
+const currentPlayer = getCurrentPlayer();
+if (!currentPlayer) { activePlayerCard.classList.remove('active'); activePlayerName.textContent = '—'; activePlayerPoints.textContent = '0 pts'; entryGate.classList.remove('hidden'); return; }
+activePlayerCard.classList.add('active');
+activePlayerName.textContent = currentPlayer.name;
+activePlayerPoints.textContent = `${getPlayerPoints(currentPlayer.id)} pts`;
+entryGate.classList.add('hidden');
+}
+function syncUI() { renderActivePlayer(); renderChallenges(); renderRanking(); }
+async function loadData() {
+const [{ data: players, error: playersError }, { data: completions, error: completionsError }] = await Promise.all([
+supabase.from('party_players').select('*').order('created_at', { ascending: true }),
+supabase.from('party_completions').select('*')
+]);
+if (playersError || completionsError) {
+console.error(playersError || completionsError);
+setStatus('Erro ao carregar dados do Supabase. Confira as tabelas e policies.');
+return;
+}
+state.players = players || [];
+state.completions = completions || [];
+setStatus('Placar online e sincronizado.');
+syncUI();
+}
+async function ensurePlayer(name) {
+const cleaned = name.trim().replace(/\s+/g, ' ');
+if (!cleaned) { alert('Digite um nome para entrar no jogo.'); return null; }
+let player = state.players.find(item => item.name.toLowerCase() === cleaned.toLowerCase());
+if (!player) {
+const { data, error } = await supabase
+.from('party_players')
+.insert({ name: cleaned })
+.select()
+.single();
+if (error) {
+console.error(error);
+setStatus('Não consegui criar a jogadora. Confira o Supabase e o SQL.');
+return null;
+}
+player = data;
+state.players = [...state.players, player];
+}
+state.currentPlayerId = player.id;
+playerNameInput.value = player.name;
+setStatus(`Você entrou como ${player.name}.`);
+syncUI();
+return player;
+}
+async function toggleChallenge(challengeId, checked) {
+const currentPlayer = getCurrentPlayer();
+if (!currentPlayer) return;
+if (checked) {
+const { error } = await supabase.from('party_completions').upsert({ player_id: currentPlayer.id, challenge_id: challengeId }, { onConflict: 'player_id,challenge_id' });
+if (error) { console.error(error); setStatus('Erro ao salvar check no Supabase.'); return; }
+} else {
+const { error } = await supabase.from('party_completions').delete().eq('player_id', currentPlayer.id).eq('challenge_id', challengeId);
+if (error) { console.error(error); setStatus('Erro ao remover check no Supabase.'); return; }
+}
+await loadData();
+state.currentPlayerId = currentPlayer.id;
+syncUI();
+}
+async function resetCurrentPlayer() {
+const currentPlayer = getCurrentPlayer();
+if (!currentPlayer) { alert('Entre com um nome antes de zerar seus desafios.'); return; }
+const { error } = await supabase.from('party_completions').delete().eq('player_id', currentPlayer.id);
+if (error) { console.error(error); setStatus('Erro ao zerar seus checks.'); return; }
+await loadData();
+state.currentPlayerId = currentPlayer.id;
+setStatus(`Checks de ${currentPlayer.name} zerados.`);
+syncUI();
+}
+async function enterWithGate() {
+const name = entryGateName.value.trim();
+if (!name) { alert('Digite seu nome para entrar.'); return; }
+await ensurePlayer(name);
+}
+joinBtn.addEventListener('click', async () => await ensurePlayer(playerNameInput.value));
+playerNameInput.addEventListener('keydown', async e => { if (e.key === 'Enter') await ensurePlayer(playerNameInput.value); });
+resetCurrentBtn.addEventListener('click', resetCurrentPlayer);
+entryGateBtn.addEventListener('click', enterWithGate);
+entryGateName.addEventListener('keydown', async e => { if (e.key === 'Enter') await enterWithGate(); });
+themeToggle.addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; updateThemeIcon(); });
+updateThemeIcon();
+syncUI();
+await loadData();
+supabase.channel('party-live-ranking')
+.on('postgres_changes', { event: '*', schema: 'public', table: 'party_players' }, async () => { await loadData(); })
+.on('postgres_changes', { event: '*', schema: 'public', table: 'party_completions' }, async () => { await loadData(); })
+.subscribe((status) => { if (status === 'SUBSCRIBED') setStatus('Tempo real ativo.'); });
+</script>
 </body>
 </html>
