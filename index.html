@@ -302,14 +302,21 @@
       if (!cleaned) { alert('Digite um nome para entrar no jogo.'); return null; }
       let player = state.players.find(item => item.name.toLowerCase() === cleaned.toLowerCase());
       if (!player) {
-        const { data, error } = await supabase.from('party_players').insert({ name: cleaned }).select().single();
-        if (error) { console.error(error); setStatus('Não consegui criar a jogadora. Confira o Supabase e o SQL.'); return null; }
+        const { data, error } = await supabase
+          .from('party_players')
+          .insert({ name: cleaned })
+          .select()
+          .single();
+        if (error) {
+          console.error(error);
+          setStatus('Não consegui criar a jogadora. Confira o Supabase e o SQL.');
+          return null;
+        }
         player = data;
+        state.players = [...state.players, player];
       }
       state.currentPlayerId = player.id;
       playerNameInput.value = player.name;
-      await loadData();
-      state.currentPlayerId = player.id;
       setStatus(`Você entrou como ${player.name}.`);
       syncUI();
       return player;
@@ -346,8 +353,8 @@
     syncUI();
     await loadData();
     supabase.channel('party-live-ranking')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'party_players' }, async () => { const currentId = state.currentPlayerId; await loadData(); state.currentPlayerId = currentId; syncUI(); })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'party_completions' }, async () => { const currentId = state.currentPlayerId; await loadData(); state.currentPlayerId = currentId; syncUI(); })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'party_players' }, async () => { await loadData(); })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'party_completions' }, async () => { await loadData(); })
       .subscribe((status) => { if (status === 'SUBSCRIBED') setStatus('Tempo real ativo.'); });
   </script>
 </body>
