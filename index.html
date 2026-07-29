@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>22 da Giu</title>
+<title>BINGO Giu's birthday</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
@@ -67,7 +67,6 @@ input { border: none; outline: none; }
 .brand { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius-full); background: #FF67AA; border: 1px solid #FF67AA; backdrop-filter: blur(10px); }
 .logo { width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; background: #2b1720; color: #fff8fb; box-shadow: var(--shadow-sm); }
 .brand h1 { font-size: var(--text-xl); line-height: 1; letter-spacing: -0.04em; font-weight: 900; color: #fff8fb; }
-.theme-toggle { min-width: 44px; min-height: 44px; border-radius: var(--radius-full); background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.5); display: grid; place-items: center; backdrop-filter: blur(10px); color: var(--color-text); }
 .hero-top-actions { display: flex; align-items: center; gap: var(--space-3); }
 .reset-link { font-size: var(--text-xs); color: var(--color-text-muted); text-decoration: underline; text-underline-offset: 2px; opacity: .75; padding: var(--space-2); }
 .reset-link:hover { opacity: 1; }
@@ -83,7 +82,7 @@ input { border: none; outline: none; }
 .challenge-wrap { display: grid; gap: var(--space-4); }
 .challenge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-4); }
 .challenge-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4); display: grid; gap: var(--space-3); min-height: 180px; }
-.challenge-card.done { background: linear-gradient(180deg, var(--color-success-highlight), var(--color-surface)); border-color: color-mix(in srgb, var(--color-success) 45%, var(--color-border)); }
+.challenge-card.done { background: linear-gradient(145deg, color-mix(in srgb, var(--color-primary) 25%, var(--color-surface)), var(--color-surface)); border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border)); }
 .challenge-card header { display: flex; justify-content: space-between; gap: var(--space-2); align-items: flex-start; }
 .challenge-number { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: var(--color-primary-highlight); color: var(--color-primary); font-size: var(--text-sm); font-weight: 900; }
 .challenge-points { padding: 0.35rem 0.65rem; border-radius: var(--radius-full); background: var(--color-warning-highlight); color: var(--color-gold); font-size: var(--text-xs); font-weight: 900; white-space: nowrap; }
@@ -94,7 +93,7 @@ input { border: none; outline: none; }
 .switch input { position: absolute; inset: 0; opacity: 0; }
 .slider { width: 100%; height: 100%; border-radius: 999px; background: var(--color-surface-offset); border: 1px solid var(--color-border); display: block; position: relative; }
 .slider::after { content: ''; position: absolute; left: 4px; top: 4px; width: 24px; height: 24px; border-radius: 50%; background: white; box-shadow: 0 4px 8px rgba(0,0,0,.12); transition: transform var(--transition-interactive); }
-.switch input:checked + .slider { background: color-mix(in srgb, var(--color-success) 28%, var(--color-surface)); border-color: color-mix(in srgb, var(--color-success) 45%, var(--color-border)); }
+.switch input:checked + .slider { background: color-mix(in srgb, var(--color-primary) 28%, var(--color-surface)); border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border)); }
 .switch input:checked + .slider::after { transform: translateX(24px); }
 .switch input:disabled + .slider { opacity: .5; }
 .ranking-list { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
@@ -142,9 +141,6 @@ input { border: none; outline: none; }
 </div>
 <div class="hero-top-actions">
 <button id="resetCurrentBtn" class="reset-link">Zerar meus desafios</button>
-<button class="theme-toggle" data-theme-toggle aria-label="Alternar tema">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-</button>
 </div>
 </div>
 <div class="stats">
@@ -201,9 +197,8 @@ const challenges = [
 { id: 22, points: 12, text: 'Cante uma música. Se mais 5 pessoas cantarem junto com você' },
 { id: 23, points: 4, text: 'Diga algo que admira na Giu' },
 { id: 24, points: 10, text: 'Peça que um desconhecido avalie seu look de 1 a 10' },
-{ id: 25, points: 6, text: 'Tire uma foto com uma pessoa que você conheceu hoje' },
 ];
-const state = { players: [], completions: [], currentPlayerId: null, theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' };
+const state = { players: [], completions: [], currentPlayerId: null };
 const challengeGrid = document.getElementById('challengeGrid');
 const rankingList = document.getElementById('rankingList');
 const rank1Name = document.getElementById('rank1Name');
@@ -212,7 +207,6 @@ const rank2Name = document.getElementById('rank2Name');
 const rank2Points = document.getElementById('rank2Points');
 const rank3Name = document.getElementById('rank3Name');
 const rank3Points = document.getElementById('rank3Points');
-const themeToggle = document.querySelector('[data-theme-toggle]');
 const resetCurrentBtn = document.getElementById('resetCurrentBtn');
 const entryGate = document.getElementById('entryGate');
 const entryGateName = document.getElementById('entryGateName');
@@ -222,12 +216,6 @@ function getPlayerCompletions(playerId) { return state.completions.filter(item =
 function getPlayerPoints(playerId) { const ids = getPlayerCompletions(playerId); return challenges.reduce((sum, item) => sum + (ids.includes(item.id) ? item.points : 0), 0); }
 function getPlayerCompletedCount(playerId) { return getPlayerCompletions(playerId).length; }
 function getCurrentPlayer() { return state.players.find(player => player.id === state.currentPlayerId) || null; }
-function updateThemeIcon() {
-document.documentElement.setAttribute('data-theme', state.theme);
-themeToggle.innerHTML = state.theme === 'dark'
-? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>'
-: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
-}
 function renderChallenges() {
 const currentPlayer = getCurrentPlayer();
 const doneIds = currentPlayer ? getPlayerCompletions(currentPlayer.id) : [];
@@ -335,8 +323,6 @@ syncUI();
 entryGateBtn.addEventListener('click', enterWithGate);
 entryGateName.addEventListener('keydown', async e => { if (e.key === 'Enter') await enterWithGate(); });
 resetCurrentBtn.addEventListener('click', resetCurrentPlayer);
-themeToggle.addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; updateThemeIcon(); });
-updateThemeIcon();
 syncUI();
 await loadData();
 supabase.channel('party-live-ranking')
