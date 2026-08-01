@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>BINGO Giu's birthday</title>
+<title>22 da Giu</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
@@ -104,14 +104,12 @@ input { border: none; outline: none; }
 .ranking-meta { color: var(--color-text-muted); font-size: var(--text-xs); }
 .ranking-score { font-weight: 900; }
 .footer-note { text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); padding-top: var(--space-2); }
-.games-wrap { display: grid; gap: var(--space-4); }
-.games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-top: var(--space-2); }
-.game-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4); display: grid; gap: var(--space-3); align-content: start; }
-.game-card h4 { font-size: var(--text-base); letter-spacing: -0.02em; }
-.game-controls { display: flex; gap: var(--space-2); flex-wrap: wrap; }
-.game-select { flex: 1; min-width: 120px; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.6rem 0.75rem; color: var(--color-text); }
+.extra-points-wrap { display: grid; gap: var(--space-4); }
+.extra-points-controls { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+.game-select { flex: 1; min-width: 160px; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.6rem 0.75rem; color: var(--color-text); }
+.points-input { width: 90px; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.6rem 0.75rem; color: var(--color-text); }
 .game-add-btn { background: color-mix(in srgb, var(--color-primary) 30%, var(--color-surface)); border: 1px solid color-mix(in srgb, var(--color-primary) 45%, var(--color-border)); border-radius: var(--radius-md); padding: 0.6rem 0.9rem; font-weight: 700; font-size: var(--text-sm); white-space: nowrap; color: var(--color-text); }
-.rounds-list { display: grid; gap: var(--space-2); max-height: 170px; overflow-y: auto; }
+.rounds-list { display: grid; gap: var(--space-2); max-height: 240px; overflow-y: auto; margin-top: var(--space-3); }
 .round-item { display: flex; align-items: center; justify-content: space-between; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.5rem 0.75rem; font-size: var(--text-sm); gap: var(--space-2); }
 .round-remove { color: var(--color-text-muted); font-size: var(--text-lg); line-height: 1; padding: 0 0.25rem; flex-shrink: 0; }
 .round-remove:hover { color: var(--color-primary); }
@@ -148,7 +146,7 @@ input { border: none; outline: none; }
 </svg>
 </div>
 <div>
-<h1>BINGO Giu's birthday</h1>
+<h1>22 DA GIU</h1>
 </div>
 </div>
 <div class="hero-top-actions">
@@ -178,12 +176,17 @@ input { border: none; outline: none; }
 </aside>
 </section>
 
-<section class="card games-wrap">
+<section class="card extra-points-wrap">
 <div>
-<h3>Brincadeiras (rodadas)</h3>
-<p class="muted">Cada rodada vencida vale +5 pts. Escolha quem ganhou e registre.</p>
+<h3>Pontos extras</h3>
+<p class="muted">Selecione a jogadora e a quantidade de pontos pra somar (brincadeiras, bônus, etc.).</p>
 </div>
-<div id="gamesGrid" class="games-grid"></div>
+<div class="extra-points-controls">
+<select id="extraPointsSelect" class="game-select"></select>
+<input id="extraPointsAmount" class="points-input" type="number" min="1" step="1" value="5" />
+<button id="extraPointsAddBtn" class="game-add-btn">Adicionar pontos</button>
+</div>
+<div id="extraPointsList" class="rounds-list"></div>
 </section>
 
 <p class="footer-note">Supabase conectado para salvar os checks no banco e atualizar o ranking ao vivo.</p>
@@ -219,15 +222,13 @@ const challenges = [
 { id: 24, points: 10, text: 'Peça que um desconhecido avalie seu look de 1 a 10' },
 { id: 25, points: 6, text: 'Tire uma foto com uma pessoa que você conheceu hoje' },
 ];
-const games = [
-{ key: 'mentiras', label: '2 Mentiras e 1 Verdade' },
-{ key: 'palavra', label: '1 Palavra e 1 Música' },
-{ key: 'acao', label: 'Imagem e Ação' },
-];
 const state = { players: [], completions: [], gameRounds: [], currentPlayerId: null };
 const challengeGrid = document.getElementById('challengeGrid');
 const rankingList = document.getElementById('rankingList');
-const gamesGrid = document.getElementById('gamesGrid');
+const extraPointsSelect = document.getElementById('extraPointsSelect');
+const extraPointsAmount = document.getElementById('extraPointsAmount');
+const extraPointsAddBtn = document.getElementById('extraPointsAddBtn');
+const extraPointsList = document.getElementById('extraPointsList');
 const rank1Name = document.getElementById('rank1Name');
 const rank1Points = document.getElementById('rank1Points');
 const rank2Name = document.getElementById('rank2Name');
@@ -279,29 +280,20 @@ const currentPlayer = getCurrentPlayer();
 if (!currentPlayer) { entryGate.classList.remove('hidden'); return; }
 entryGate.classList.add('hidden');
 }
-function renderGames() {
-gamesGrid.innerHTML = games.map(game => {
-const rounds = state.gameRounds.filter(item => item.game === game.key).sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-const roundsHtml = rounds.length
-? rounds.map((round, index) => {
-const player = state.players.find(p => p.id === round.player_id);
-return `<div class="round-item"><span>Rodada ${index + 1}: <strong>${player ? player.name : '—'}</strong></span><button class="round-remove" data-remove-round="${round.id}" title="Remover rodada">×</button></div>`;
-}).join('')
-: '<p class="muted small">Nenhuma rodada registrada ainda.</p>';
-const options = state.players.length
+function renderExtraPoints() {
+extraPointsSelect.innerHTML = state.players.length
 ? state.players.map(p => `<option value="${p.id}">${p.name}</option>`).join('')
 : '<option value="">Cadastre jogadoras primeiro</option>';
-return `<div class="game-card"><h4>${game.label}</h4><div class="game-controls"><select class="game-select" data-game-select="${game.key}">${options}</select><button class="game-add-btn" data-game-add="${game.key}">+5 pts</button></div><div class="rounds-list">${roundsHtml}</div></div>`;
-}).join('');
-gamesGrid.querySelectorAll('[data-game-add]').forEach(btn => btn.addEventListener('click', async () => {
-const gameKey = btn.dataset.gameAdd;
-const select = gamesGrid.querySelector(`[data-game-select="${gameKey}"]`);
-if (!select.value) { alert('Cadastre pelo menos uma jogadora antes (peça para ela entrar pelo pop-up).'); return; }
-await addGameRound(gameKey, select.value);
-}));
-gamesGrid.querySelectorAll('[data-remove-round]').forEach(btn => btn.addEventListener('click', async () => await removeGameRound(btn.dataset.removeRound)));
+const sorted = [...state.gameRounds].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+extraPointsList.innerHTML = sorted.length
+? sorted.map(round => {
+const player = state.players.find(p => p.id === round.player_id);
+return `<div class="round-item"><span><strong>${player ? player.name : '—'}</strong> +${round.points} pts</span><button class="round-remove" data-remove-round="${round.id}" title="Remover">×</button></div>`;
+}).join('')
+: '<p class="muted small">Nenhum ponto extra registrado ainda.</p>';
+extraPointsList.querySelectorAll('[data-remove-round]').forEach(btn => btn.addEventListener('click', async () => await removeGameRound(btn.dataset.removeRound)));
 }
-function syncUI() { renderActivePlayer(); renderChallenges(); renderRanking(); renderGames(); }
+function syncUI() { renderActivePlayer(); renderChallenges(); renderRanking(); renderExtraPoints(); }
 async function loadData() {
 const [{ data: players, error: playersError }, { data: completions, error: completionsError }, { data: gameRounds, error: gameRoundsError }] = await Promise.all([
 supabase.from('party_players').select('*').order('created_at', { ascending: true }),
@@ -356,13 +348,13 @@ await loadData();
 state.currentPlayerId = currentPlayer.id;
 syncUI();
 }
-async function addGameRound(gameKey, playerId) {
-const { error } = await supabase.from('party_game_rounds').insert({ player_id: playerId, game: gameKey, points: 5 });
-if (error) { console.error(error); setStatus('Erro ao registrar a rodada. Confira a tabela party_game_rounds.'); return; }
+async function addGameRound(playerId, points) {
+const { error } = await supabase.from('party_game_rounds').insert({ player_id: playerId, game: 'extra', points });
+if (error) { console.error(error); setStatus('Erro ao registrar os pontos. Confira a tabela party_game_rounds.'); return; }
 const heldPlayerId = state.currentPlayerId;
 await loadData();
 state.currentPlayerId = heldPlayerId;
-setStatus('Rodada registrada.');
+setStatus('Pontos extras adicionados.');
 syncUI();
 }
 async function removeGameRound(roundId) {
@@ -393,6 +385,14 @@ syncUI();
 entryGateBtn.addEventListener('click', enterWithGate);
 entryGateName.addEventListener('keydown', async e => { if (e.key === 'Enter') await enterWithGate(); });
 resetCurrentBtn.addEventListener('click', resetCurrentPlayer);
+extraPointsAddBtn.addEventListener('click', async () => {
+const playerId = extraPointsSelect.value;
+const amount = parseInt(extraPointsAmount.value, 10);
+if (!playerId) { alert('Cadastre pelo menos uma jogadora antes (peça para ela entrar pelo pop-up).'); return; }
+if (!amount || amount <= 0) { alert('Digite uma quantidade de pontos válida.'); return; }
+await addGameRound(playerId, amount);
+extraPointsAmount.value = 5;
+});
 syncUI();
 await loadData();
 supabase.channel('party-live-ranking')
